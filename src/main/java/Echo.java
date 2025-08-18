@@ -13,6 +13,12 @@ public class Echo {
             String command = scanner.nextLine();
             if (command.equals("bye")) {
                 break;
+            } else if (command.equals("list")) {
+                int index = 1;
+                for (String task : list) {
+                    System.out.println(index + ". " + task);
+                    index++;
+                }
             } else {
                 list.add(command);
                 System.out.println("added: " + command);
