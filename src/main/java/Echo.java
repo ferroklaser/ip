@@ -3,5 +3,6 @@ public class Echo {
         String logo = "Echo";
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
+        System.out.println("Byeeee, cya!");
     }
 }
