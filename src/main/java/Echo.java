@@ -33,6 +33,11 @@ public class Echo {
                     String[] taskParts = parts[1].split(" /by ");
                     t = new Deadline(taskParts[0], taskParts[1]);
                     list.add(t);
+                } else if (parts[0].equals("event")) {
+                    String[] taskParts = parts[1].split(" /from ");
+                    String[] fromToParts = taskParts[1].split(" /to ");
+                    t = new Event(taskParts[0], fromToParts[0], fromToParts[1]);
+                    list.add(t);
                 }
                 System.out.println("Ok, I've added this task for you");
                 System.out.println("  " + t);
