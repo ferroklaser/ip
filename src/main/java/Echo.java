@@ -29,9 +29,11 @@ public class Echo {
                     t = new Todo(parts[1]);
                     list.add(t);
                 }
-//                else if (parts[0].equals("deadline")){
-//                    String[] taskParts = parts[1].split(" /by ")
-//                }
+                else if (parts[0].equals("deadline")){
+                    String[] taskParts = parts[1].split(" /by ");
+                    t = new Deadline(taskParts[0], taskParts[1]);
+                    list.add(t);
+                }
                 System.out.println("Ok, I've added this task for you");
                 System.out.println("  " + t);
                 System.out.println("Now you have " + list.size() + " tasks in the list");
