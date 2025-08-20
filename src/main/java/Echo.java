@@ -50,7 +50,7 @@ public class Echo {
                     }
                     System.out.println("Ok, I've added this task for you");
                     System.out.println("  " + t);
-                    System.out.println("Now you have " + list.size() + " tasks in the list");
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
                 } else if (parts[0].equals("mark")) {
                     int index = Integer.parseInt(parts[1]);
                     Task task = list.get(index - 1);
@@ -63,6 +63,12 @@ public class Echo {
                     task.markAsUndone();
                     System.out.println("Alright, I've marked this task as not done for you:");
                     System.out.println("  " + task);
+                } else if (parts[0].equals("delete")) {
+                    int index = Integer.parseInt(parts[1]);
+                    Task task = list.remove(index - 1);
+                    System.out.println("Task has been removed");
+                    System.out.println("  " + task);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
                 } else {
                     throw new EchoException("I'm not sure I can do that");
                 }
