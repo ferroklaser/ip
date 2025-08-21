@@ -61,7 +61,7 @@ public class Echo {
                     int index = Integer.parseInt(parts[1]);
                     Task task = list.get(index - 1);
                     task.markAsUndone();
-                    System.out.println("Alright, I've marked this task as not done for you:");
+                    System.out.println("Fine, I'll unmark this task for you:");
                     System.out.println("  " + task);
                 } else if (parts[0].equals("delete")) {
                     int index = Integer.parseInt(parts[1]);
