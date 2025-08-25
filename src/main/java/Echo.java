@@ -17,7 +17,8 @@ enum Command {
 public class Echo {
     public static void main(String[] args) {
         String logo = "Echo";
-        ArrayList<Task> list = new ArrayList<>();
+        Storage storage = new Storage("data/echo.txt");
+        List<Task> list = storage.readFile();
         System.out.println("Hello! I'm " + logo);
         Scanner scanner = new Scanner(System.in);
         System.out.println("What can I do for you?");
@@ -35,6 +36,7 @@ public class Echo {
                 switch (command) {
                 case BYE:
                     System.out.println("Byeeee, cya!");
+                    storage.saveFile(list);
                     return;
                 case LIST: {
                     int index = 1;
