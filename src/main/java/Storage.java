@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -43,14 +45,19 @@ public class Storage {
                         list.add(todoTask);
                         break;
                     case "D":
-                        Task deadlineTask = new Deadline(parts[2], parts[3]);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                        LocalDateTime deadline = LocalDateTime.parse(parts[3], formatter);
+                        Task deadlineTask = new Deadline(parts[2], deadline);
                         if (parts[1].equals("1")) {
                             deadlineTask.markAsDone();
                         }
                         list.add(deadlineTask);
                         break;
                     case "E":
-                        Task eventTask = new Event(parts[2], parts[3], parts[4]);
+                        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                        LocalDateTime start = LocalDateTime.parse(parts[3], formatter1);
+                        LocalDateTime end = LocalDateTime.parse(parts[4], formatter1);
+                        Task eventTask = new Event(parts[2], start, end);
                         if (parts[1].equals("1")) {
                             eventTask.markAsDone();
                         }

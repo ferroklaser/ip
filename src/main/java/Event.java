@@ -13,7 +13,8 @@ public class Event extends Task {
 
     @Override
     public String toDataString() {
-        return "E | " + super.toDataString() + " | " + this.from + " | " + this.to;
+        DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+        return "E | " + super.toDataString() + " | " + this.from.format(storageFormatter) + " | " + this.to.format(storageFormatter);
     }
 
     @Override

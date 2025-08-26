@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +66,9 @@ public class Echo {
                             if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
                                 throw new EchoException("Wait a min! Your deadline cannot be empty");
                             }
-                            t = new Deadline(deadlineParts[0], deadlineParts[1]);
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                            LocalDateTime deadline = LocalDateTime.parse(deadlineParts[1], formatter);
+                            t = new Deadline(deadlineParts[0], deadline);
                             list.add(t);
                             break;
                         case EVENT:
@@ -73,7 +77,10 @@ public class Echo {
                             if (fromToParts[0].isEmpty() || fromToParts[1].isEmpty()) {
                                 throw new EchoException("Wait a min! Your dates cannot be empty");
                             }
-                            t = new Event(eventParts[0], fromToParts[0], fromToParts[1]);
+                            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                            LocalDateTime start = LocalDateTime.parse(fromToParts[0], formatter1);
+                            LocalDateTime end = LocalDateTime.parse(fromToParts[1], formatter1);
+                            t = new Event(eventParts[0], start, end);
                             list.add(t);
                             break;
                     }
