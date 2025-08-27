@@ -20,7 +20,8 @@ public class Echo {
     public static void main(String[] args) {
         String logo = "Echo";
         Storage storage = new Storage("data/echo.txt");
-        List<Task> list = storage.readFile();
+//        List<Task> list = storage.readFile();
+        TaskList list = new TaskList(storage.readFile());
         System.out.println("Hello! I'm " + logo);
         Scanner scanner = new Scanner(System.in);
         System.out.println("What can I do for you?");
@@ -38,15 +39,11 @@ public class Echo {
                 switch (command) {
                 case BYE:
                     System.out.println("Byeeee, cya!");
-                    storage.saveFile(list);
+                    storage.saveFile(list.getList());
                     return;
                 case LIST: {
-                    int index = 1;
                     System.out.println("Let's take a look at the tasks in your list:");
-                    for (Task task : list) {
-                        System.out.println(index + "." + task);
-                        index++;
-                    }
+                    list.printList();
                     break;
                 }
                 case TODO:
@@ -59,17 +56,17 @@ public class Echo {
                     switch (command) {
                         case TODO:
                             t = new Todo(parts[1]);
-                            list.add(t);
+                            list.addTask(t);
                             break;
                         case DEADLINE:
                             String[] deadlineParts = parts[1].split(" /by ");
                             if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
                                 throw new EchoException("Wait a min! Your deadline cannot be empty");
                             }
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                             LocalDateTime deadline = LocalDateTime.parse(deadlineParts[1], formatter);
                             t = new Deadline(deadlineParts[0], deadline);
-                            list.add(t);
+                            list.addTask(t);
                             break;
                         case EVENT:
                             String[] eventParts = parts[1].split(" /from ");
@@ -77,20 +74,20 @@ public class Echo {
                             if (fromToParts[0].isEmpty() || fromToParts[1].isEmpty()) {
                                 throw new EchoException("Wait a min! Your dates cannot be empty");
                             }
-                            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                             LocalDateTime start = LocalDateTime.parse(fromToParts[0], formatter1);
                             LocalDateTime end = LocalDateTime.parse(fromToParts[1], formatter1);
                             t = new Event(eventParts[0], start, end);
-                            list.add(t);
+                            list.addTask(t);
                             break;
                     }
                     System.out.println("Ok, I've added this task for you");
                     System.out.println("  " + t);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("Now you have " + list.getSize() + " tasks in the list.");
                     break;
                 case MARK: {
                     int index = Integer.parseInt(parts[1]);
-                    Task task = list.get(index - 1);
+                    Task task = list.getTask(index - 1);
                     task.markAsDone();
                     System.out.println("Good job! I've marked this task as done:");
                     System.out.println("  " + task);
@@ -98,7 +95,7 @@ public class Echo {
                 }
                 case UNMARK: {
                     int index = Integer.parseInt(parts[1]);
-                    Task task = list.get(index - 1);
+                    Task task = list.getTask(index - 1);
                     task.markAsUndone();
                     System.out.println("Fine, I'll unmark this task for you:");
                     System.out.println("  " + task);
@@ -106,10 +103,10 @@ public class Echo {
                 }
                 case DELETE: {
                     int index = Integer.parseInt(parts[1]);
-                    Task task = list.remove(index - 1);
+                    Task task = list.deleteTask(index - 1);
                     System.out.println("Task has been removed");
                     System.out.println("  " + task);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("Now you have " + list.getSize() + " tasks in the list.");
                     break;
                 }
                 default:
