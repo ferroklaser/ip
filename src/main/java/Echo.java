@@ -18,17 +18,19 @@ enum Command {
 
 public class Echo {
     public static void main(String[] args) {
-        String logo = "Echo";
+//        String logo = "Echo";
         Storage storage = new Storage("data/echo.txt");
 //        List<Task> list = storage.readFile();
+        UI ui = new UI();
         TaskList list = new TaskList(storage.readFile());
-        System.out.println("Hello! I'm " + logo);
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("What can I do for you?");
+//        System.out.println("Hello! I'm " + logo);
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("What can I do for you?");
+        ui.showWelcome();
 
         while (true) {
             try {
-                String input = scanner.nextLine();
+                String input = ui.readCommand();
                 String[] parts = input.split(" ", 2);
                 Command command;
                try {
@@ -38,12 +40,11 @@ public class Echo {
                }
                 switch (command) {
                 case BYE:
-                    System.out.println("Byeeee, cya!");
+                    ui.showExit();
                     storage.saveFile(list.getList());
                     return;
                 case LIST: {
-                    System.out.println("Let's take a look at the tasks in your list:");
-                    list.printList();
+                    ui.showList(list);
                     break;
                 }
                 case TODO:
@@ -81,32 +82,28 @@ public class Echo {
                             list.addTask(t);
                             break;
                     }
-                    System.out.println("Ok, I've added this task for you");
-                    System.out.println("  " + t);
-                    System.out.println("Now you have " + list.getSize() + " tasks in the list.");
+                    ui.showAddTask(t);
+                    ui.showListSize(list);
                     break;
                 case MARK: {
                     int index = Integer.parseInt(parts[1]);
-                    Task task = list.getTask(index - 1);
+                    Task task = list.getTask(index);
                     task.markAsDone();
-                    System.out.println("Good job! I've marked this task as done:");
-                    System.out.println("  " + task);
+                    ui.showMarkedTask(task);
                     break;
                 }
                 case UNMARK: {
                     int index = Integer.parseInt(parts[1]);
-                    Task task = list.getTask(index - 1);
+                    Task task = list.getTask(index);
                     task.markAsUndone();
-                    System.out.println("Fine, I'll unmark this task for you:");
-                    System.out.println("  " + task);
+                    ui.showUnmarkedTask(task);
                     break;
                 }
                 case DELETE: {
                     int index = Integer.parseInt(parts[1]);
-                    Task task = list.deleteTask(index - 1);
-                    System.out.println("Task has been removed");
-                    System.out.println("  " + task);
-                    System.out.println("Now you have " + list.getSize() + " tasks in the list.");
+                    Task task = list.deleteTask(index);
+                    ui.showDeletedTask(task);
+                    ui.showListSize(list);
                     break;
                 }
                 default:
