@@ -1,3 +1,5 @@
+package echo;
+
 public class Parser {
     public static String[] parse(String input) throws EchoException {
         String[] parts = input.split(" ", 2);

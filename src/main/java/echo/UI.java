@@ -1,3 +1,5 @@
+package echo;
+
 import java.util.Scanner;
 
 public class UI {
@@ -12,7 +14,7 @@ public class UI {
     }
 
     public void showWelcome() {
-        System.out.println("Hello, I'm Echo");
+        System.out.println("Hello, I'm echo.Echo");
         System.out.println("What can I do for you today?");
     }
 
