@@ -1,4 +1,4 @@
-package echo;
+package echo.task;
 
 public class Task {
     protected String description;

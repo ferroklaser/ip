@@ -1,19 +1,19 @@
 package echo;
 
+import echo.command.Command;
+import echo.echoexception.EchoException;
+import echo.parser.Parser;
+import echo.storage.Storage;
+import echo.task.Deadline;
+import echo.task.Event;
+import echo.task.Task;
+import echo.task.Todo;
+import echo.tasklist.TaskList;
+import echo.ui.UI;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-enum Command {
-    TODO,
-    DEADLINE,
-    EVENT,
-    MARK,
-    UNMARK,
-    LIST,
-    DELETE,
-    BYE,
-    DEFAULT
-}
 
 public class Echo {
     public static void main(String[] args) {

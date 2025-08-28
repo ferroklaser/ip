@@ -1,4 +1,6 @@
-package echo;
+package echo.tasklist;
+
+import echo.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
