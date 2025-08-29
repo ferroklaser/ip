@@ -32,9 +32,13 @@ public class TaskList {
         return this.taskList;
     }
 
-    public void printList() {
+    public List<Task> getTasksWithKeyword(String keyword) {
+        return this.taskList.stream().filter(task -> task.hasKeyword(keyword)).toList();
+    }
+
+    public static void printList(List<Task> list) {
         int index = 1;
-        for (Task task : this.taskList) {
+        for (Task task : list) {
             System.out.println(index + "." + task);
             index++;
         }

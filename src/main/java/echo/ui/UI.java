@@ -27,7 +27,7 @@ public class UI {
 
     public void showList(TaskList list) {
         System.out.println("Let's take a look at the tasks in your list:");
-        list.printList();
+        TaskList.printList(list.getList());
     }
 
     public void showMarkedTask(Task task) {
