@@ -32,8 +32,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "echo"
+    archiveBaseName = 'echo'
     archiveClassifier = null
+    archiveFileName = 'echo.jar'
 }
 
 run{
