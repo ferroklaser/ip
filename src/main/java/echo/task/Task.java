@@ -1,5 +1,10 @@
 package echo.task;
 
+/**
+ * Represents a task created by the user. A <code>Task</code> object
+ * stores a String <code>description</code> and boolean flag <code>isDone</code>
+ * indicating whether a task has been completed.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,10 +14,22 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the corresponding icon based on isDone boolean
+     * "X" if isDone is true, " " if isDone is false
+     *
+     * @return String
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns the corresponding number as a string
+     * "1" if isDone is true, "0" if isDone is false
+     *
+     * @return String
+     */
     public String getStatusNumber() {
         return (isDone ? "1" : "0");
     }
@@ -25,8 +42,13 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the task as a String formatted to be saved in txt file
+     *
+     * @return String
+     */
     public String toDataString() {
-        return getStatusNumber() + " | " +this.description;
+        return getStatusNumber() + " | " + this.description;
     }
 
     @Override

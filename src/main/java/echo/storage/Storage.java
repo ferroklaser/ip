@@ -15,7 +15,13 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.util.List;
 
-
+/**
+ *  Represents persistent storage to store and retrieve user tasks.
+ *  The <code>Storage</code> class provides methods to read tasks from a file and
+ *  write tasks to a file, allowing the application to maintain task data between
+ *  programs. A <code>Storage</code> object stores a File <code>file</code>
+ *  from which the information is retrieved.
+ */
 public class Storage {
     private File file;
 
@@ -35,6 +41,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns a list of tasks after reading the file from the storage.
+     *
+     * @return tasks List of tasks stored in file.
+     */
     public List<Task> readFile() {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -79,6 +90,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the given list of tasks by writing it onto the storage file
+     *
+     * @param list The list of tasks to be stored
+     */
     public void saveFile(List<Task> list) {
         try {
             FileWriter fw = new FileWriter(this.file);
