@@ -3,6 +3,11 @@ package echo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task. A <code>Deadline</code> object is a subtype
+ * of <code>Task</code> that stores a LocalDateTime <code>by</code>
+ * indicating the date and time at which the task must be completed.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 

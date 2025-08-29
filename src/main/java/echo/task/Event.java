@@ -3,6 +3,11 @@ package echo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task. An <code>Event</code> object is a subtype of <code>Task</code>
+ * that stores LocalDateTime <code>from</code> and LocalDateTime <code>to</code> which indicates
+ * the start and end of the task.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
