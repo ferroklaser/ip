@@ -3,7 +3,15 @@ package echo.parser;
 import echo.echoexception.EchoException;
 import echo.command.Command;
 
+/**
+ * Represents parser to interpret raw input strings to commands.
+ */
 public class Parser {
+    /**
+     * @param input Input string to be parsed.
+     * @return array A String array representing parsed commands and arguments.
+     * @throws EchoException if description, date or time are missing for task creation.
+     */
     public static String[] parse(String input) throws EchoException {
         String[] parts = input.split(" ", 2);
         Command command;

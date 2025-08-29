@@ -5,6 +5,10 @@ import echo.tasklist.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Represents the UI that users will interact with. A <code>UI</code> object
+ * stores a <code>Scanner</code> scanner.
+ */
 public class UI {
     private Scanner scanner;
 
