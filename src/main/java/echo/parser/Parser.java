@@ -54,6 +54,8 @@ public class Parser {
             return new String[]{"UNMARK", parts[1]};
         case DELETE:
             return new String[]{"DELETE", parts[1]};
+        case FIND:
+            return new String[]{"FIND", parts[1]};
         default:
             return new String[]{"DEFAULT"};
         }

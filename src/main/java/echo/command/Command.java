@@ -9,5 +9,6 @@ public enum Command {
     LIST,
     DELETE,
     BYE,
+    FIND,
     DEFAULT
 }

@@ -3,6 +3,7 @@ package echo.ui;
 import echo.task.Task;
 import echo.tasklist.TaskList;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -31,7 +32,12 @@ public class UI {
 
     public void showList(TaskList list) {
         System.out.println("Let's take a look at the tasks in your list:");
-        list.printList();
+        TaskList.printList(list.getList());
+    }
+
+    public void showKeywordList(List<Task> list) {
+        System.out.println("Here are the matching tasks in your list:");
+        TaskList.printList(list);
     }
 
     public void showMarkedTask(Task task) {

@@ -13,6 +13,7 @@ import echo.ui.UI;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 public class Echo {
@@ -83,6 +84,10 @@ public class Echo {
                     ui.showListSize(list);
                     break;
                 }
+                case FIND:
+                    List<Task> filteredList = list.getTasksWithKeyword(parsedInput[1]);
+                    ui.showKeywordList(filteredList);
+                    break;
                 default:
                     throw new EchoException("I'm not sure I can do that");
                 }

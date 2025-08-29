@@ -58,12 +58,16 @@ public class TaskList {
         return this.taskList;
     }
 
+    public List<Task> getTasksWithKeyword(String keyword) {
+        return this.taskList.stream().filter(task -> task.hasKeyword(keyword)).toList();
+    }
+
     /**
      * Prints every task in the list.
      */
-    public void printList() {
+    public static void printList(List<Task> list) {
         int index = 1;
-        for (Task task : this.taskList) {
+        for (Task task : list) {
             System.out.println(index + "." + task);
             index++;
         }

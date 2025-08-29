@@ -51,6 +51,10 @@ public class Task {
         return getStatusNumber() + " | " + this.description;
     }
 
+    public boolean hasKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
