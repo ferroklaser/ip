@@ -1,7 +1,8 @@
 package echo.parser;
 
-import echo.echoexception.EchoException;
 import echo.command.Command;
+import echo.echoexception.EchoException;
+
 
 /**
  * Represents parser to interpret raw input strings to commands.

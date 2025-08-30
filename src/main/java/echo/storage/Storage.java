@@ -1,19 +1,19 @@
 package echo.storage;
 
-import echo.task.Deadline;
-import echo.task.Event;
-import echo.task.Task;
-import echo.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileWriter;
 import java.util.List;
+
+import echo.task.Deadline;
+import echo.task.Event;
+import echo.task.Task;
+import echo.task.Todo;
 
 /**
  *  Represents persistent storage to store and retrieve user tasks.
@@ -55,32 +55,32 @@ public class Storage {
 
                 String[] parts = line.split(" \\| ");
                 switch (parts[0]) {
-                    case "T":
-                        Task todoTask = new Todo(parts[2]);
-                        if (parts[1].equals("1")) {
-                            todoTask.markAsDone();
-                        }
-                        list.add(todoTask);
-                        break;
-                    case "D":
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-                        LocalDateTime deadline = LocalDateTime.parse(parts[3], formatter);
-                        Task deadlineTask = new Deadline(parts[2], deadline);
-                        if (parts[1].equals("1")) {
-                            deadlineTask.markAsDone();
-                        }
-                        list.add(deadlineTask);
-                        break;
-                    case "E":
-                        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-                        LocalDateTime start = LocalDateTime.parse(parts[3], formatter1);
-                        LocalDateTime end = LocalDateTime.parse(parts[4], formatter1);
-                        Task eventTask = new Event(parts[2], start, end);
-                        if (parts[1].equals("1")) {
-                            eventTask.markAsDone();
-                        }
-                        list.add(eventTask);
-                        break;
+                case "T":
+                    Task todoTask = new Todo(parts[2]);
+                    if (parts[1].equals("1")) {
+                        todoTask.markAsDone();
+                    }
+                    list.add(todoTask);
+                    break;
+                case "D":
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                    LocalDateTime deadline = LocalDateTime.parse(parts[3], formatter);
+                    Task deadlineTask = new Deadline(parts[2], deadline);
+                    if (parts[1].equals("1")) {
+                        deadlineTask.markAsDone();
+                    }
+                    list.add(deadlineTask);
+                    break;
+                case "E":
+                    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+                    LocalDateTime start = LocalDateTime.parse(parts[3], formatter1);
+                    LocalDateTime end = LocalDateTime.parse(parts[4], formatter1);
+                    Task eventTask = new Event(parts[2], start, end);
+                    if (parts[1].equals("1")) {
+                        eventTask.markAsDone();
+                    }
+                    list.add(eventTask);
+                    break;
                 }
             }
             scanner.close();

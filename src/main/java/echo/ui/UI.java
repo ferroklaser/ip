@@ -1,10 +1,11 @@
 package echo.ui;
 
+import java.util.List;
+import java.util.Scanner;
+
 import echo.task.Task;
 import echo.tasklist.TaskList;
 
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Represents the UI that users will interact with. A <code>UI</code> object
