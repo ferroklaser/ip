@@ -1,7 +1,8 @@
 package echo.parser;
 
-import echo.echoexception.EchoException;
 import echo.command.Command;
+import echo.echoexception.EchoException;
+
 
 public class Parser {
     public static String[] parse(String input) throws EchoException {

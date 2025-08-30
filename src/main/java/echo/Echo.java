@@ -1,5 +1,8 @@
 package echo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import echo.command.Command;
 import echo.echoexception.EchoException;
 import echo.parser.Parser;
@@ -10,10 +13,6 @@ import echo.task.Task;
 import echo.task.Todo;
 import echo.tasklist.TaskList;
 import echo.ui.UI;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 public class Echo {
     public static void main(String[] args) {
@@ -41,23 +40,23 @@ public class Echo {
                 case EVENT:
                     Task t = null;
                     switch (command) {
-                        case TODO:
-                            t = new Todo(parsedInput[1]);
-                            list.addTask(t);
-                            break;
-                        case DEADLINE:
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                            LocalDateTime deadline = LocalDateTime.parse(parsedInput[2], formatter);
-                            t = new Deadline(parsedInput[1], deadline);
-                            list.addTask(t);
-                            break;
-                        case EVENT:
-                            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                            LocalDateTime start = LocalDateTime.parse(parsedInput[2], formatter1);
-                            LocalDateTime end = LocalDateTime.parse(parsedInput[3], formatter1);
-                            t = new Event(parsedInput[1], start, end);
-                            list.addTask(t);
-                            break;
+                    case TODO:
+                        t = new Todo(parsedInput[1]);
+                        list.addTask(t);
+                        break;
+                    case DEADLINE:
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime deadline = LocalDateTime.parse(parsedInput[2], formatter);
+                        t = new Deadline(parsedInput[1], deadline);
+                        list.addTask(t);
+                        break;
+                    case EVENT:
+                        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime start = LocalDateTime.parse(parsedInput[2], formatter1);
+                        LocalDateTime end = LocalDateTime.parse(parsedInput[3], formatter1);
+                        t = new Event(parsedInput[1], start, end);
+                        list.addTask(t);
+                        break;
                     }
                     ui.showAddTask(t);
                     ui.showListSize(list);

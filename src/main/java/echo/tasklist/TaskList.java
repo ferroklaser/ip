@@ -1,9 +1,9 @@
 package echo.tasklist;
 
-import echo.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import echo.task.Task;
 
 public class TaskList {
     private List<Task> taskList;

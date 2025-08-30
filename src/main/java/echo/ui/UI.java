@@ -1,9 +1,9 @@
 package echo.ui;
 
+import java.util.Scanner;
+
 import echo.task.Task;
 import echo.tasklist.TaskList;
-
-import java.util.Scanner;
 
 public class UI {
     private Scanner scanner;
