@@ -48,7 +48,8 @@ test {
 }
 
 application {
-    mainClass.set("echo.Echo")
+//    mainClass.set("echo.Echo")
+    mainClass.set("echo.main.Launcher")
 }
 
 shadowJar {

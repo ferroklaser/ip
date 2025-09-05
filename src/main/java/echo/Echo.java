@@ -20,8 +20,8 @@ public class Echo {
     protected final UI ui;
     protected final TaskList tasklist;
 
-    public Echo(String path) {
-        this.storage = new Storage(path);
+    public Echo() {
+        this.storage = new Storage("data/echo.txt");
         this.ui = new UI();
         this.tasklist = new TaskList(this.storage.readFile());
     }
@@ -103,8 +103,7 @@ public class Echo {
         }
     }
 
-    public static void main(String[] args) {
-        Echo echo = new Echo("data/echo.txt");
-        echo.run();
+    public String getResponse(String input) {
+        return "Echo heard: " + input;
     }
 }
