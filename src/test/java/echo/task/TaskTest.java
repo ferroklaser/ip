@@ -1,13 +1,13 @@
 package echo.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import org.junit.jupiter.api.Test;
+
 public class TaskTest {
     @Test
-    public void testIsDoneStatus(){
+    public void testIsDoneStatus() {
         Task task = new Task("description");
         assertFalse(task.isDone);
 
