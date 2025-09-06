@@ -23,46 +23,53 @@ public class UI {
     }
 
     public void showWelcome() {
-        System.out.println("Hello, I'm echo.Echo");
+        System.out.println("Hello, I'm Echo Echo.");
         System.out.println("What can I do for you today?");
     }
 
-    public void showExit() {
-        System.out.println("Byeeee, cya!");
+    public String showExit() {
+        return "Echo Echo...going back into the Omnitrix! See you soon!\n";
     }
 
-    public void showList(TaskList list) {
-        System.out.println("Let's take a look at the tasks in your list:");
-        TaskList.printList(list.getList());
+    public String showList(TaskList list) {
+        String msg = TaskList.printList(list);
+        msg = "Let's take a look at the tasks in your list:\n" + msg + "\n";
+        return msg;
     }
 
-    public void showKeywordList(List<Task> list) {
-        System.out.println("Here are the matching tasks in your list:");
-        TaskList.printList(list);
+    public String showKeywordList(TaskList list) {
+        String msg = TaskList.printList(list);
+        msg = "Here are the matching tasks in your list:\n" + msg + "\n";
+        return msg;
     }
 
-    public void showMarkedTask(Task task) {
-        System.out.println("Good job! I've marked this task as done:");
-        System.out.println("  " + task);
+    public String showMarkedTask(Task task) {
+        StringBuilder msg = new StringBuilder();
+        msg.append("Good job! I've marked this task as done:\n");
+        msg.append("  ").append(task).append("\n");
+        return msg.toString();
     }
 
-    public void showUnmarkedTask(Task task) {
-        System.out.println("Fine, I'll unmark this task for you:");
-        System.out.println("  " + task);
+    public String showUnmarkedTask(Task task) {
+        StringBuilder msg = new StringBuilder();
+        msg.append("Fine, I'll unmark this task for you:\n");
+        msg.append("  ").append(task).append("\n");
+        return msg.toString();
     }
 
-    public void showDeletedTask(Task task) {
-        System.out.println("Task has been removed");
-        System.out.println("  " + task);
+    public String showDeletedTask(Task task) {
+        StringBuilder msg = new StringBuilder();
+        msg.append("Destroying task....AHHHHHH!\n");
+        msg.append("  ").append(task).append("\n");
+        return msg.toString();
     }
 
-    public void showAddTask(Task task) {
-        System.out.println("Ok, I've added this task for you");
-        System.out.println("  " + task);
+    public String showAddTask(Task task) {
+        return "Task Added! Task Added!\n" + task + "\n";
     }
 
-    public void showListSize(TaskList taskList) {
-        System.out.println("Now you have " + taskList.getSize() + " tasks in the list.");
+    public String showListSize(TaskList taskList) {
+        return "Now you have " + taskList.getSize() + " tasks in your list.\n";
     }
 
 }

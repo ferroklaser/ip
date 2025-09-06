@@ -1,0 +1,67 @@
+package echo.ui;
+
+import echo.Echo;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
+public class MainWindow {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+
+    private Echo echo;
+    private Image userImage = new Image(
+            this.getClass().getResourceAsStream("/images/User.jpg"));
+    private Image echoImage = new Image(
+            this.getClass().getResourceAsStream("/images/Echo.png"));
+
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getEchoDialog(
+                        "Echo Echo reporting for duty!",
+                        echoImage
+                )
+        );
+    }
+
+    /** Injects the Echo instance */
+    public void setEcho(Echo e) {
+        echo = e;
+    }
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        String response = echo.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getEchoDialog(response, echoImage)
+        );
+        userInput.clear();
+
+        if (response.equals("Echo Echo...going back into the Omnitrix! See you soon!\n")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
+    }
+}

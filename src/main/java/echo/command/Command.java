@@ -1,14 +1,13 @@
 package echo.command;
 
-public enum Command {
-    TODO,
-    DEADLINE,
-    EVENT,
-    MARK,
-    UNMARK,
-    LIST,
-    DELETE,
-    BYE,
-    FIND,
-    DEFAULT
+import echo.Echo;
+
+public abstract class Command {
+    protected Echo echo;
+
+    public Command(Echo echo) {
+        this.echo = echo;
+    }
+
+    public abstract String execute();
 }

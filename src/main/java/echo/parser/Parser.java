@@ -1,8 +1,30 @@
 package echo.parser;
 
+import echo.Echo;
+import echo.command.ByeCommand;
 import echo.command.Command;
+import echo.command.DeadlineCommand;
+import echo.command.DeleteCommand;
+import echo.command.EventCommand;
+import echo.command.FindCommand;
+import echo.command.ListCommand;
+import echo.command.MarkCommand;
+import echo.command.ToDoCommand;
+import echo.command.UnmarkCommand;
 import echo.echoexception.EchoException;
 
+enum Action {
+    BYE,
+    LIST,
+    TODO,
+    DEADLINE,
+    EVENT,
+    MARK,
+    UNMARK,
+    DELETE,
+    FIND,
+    DEFAULT
+}
 
 /**
  * Represents parser to interpret raw input strings to commands.
@@ -13,52 +35,53 @@ public class Parser {
      * @return array A String array representing parsed commands and arguments.
      * @throws EchoException if description, date or time are missing for task creation.
      */
-    public static String[] parse(String input) throws EchoException {
+    public static Command parse(Echo echo, String input) throws EchoException {
         String[] parts = input.split(" ", 2);
-        Command command;
+        Action action;
         try {
-            command = Command.valueOf(parts[0].toUpperCase());
+            action = Action.valueOf(parts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            command = Command.DEFAULT;
+            action = Action.DEFAULT;
         }
-        switch (command) {
+        switch (action) {
         case BYE:
-            return new String[]{"BYE"};
+            return new ByeCommand(echo);
         case LIST:
-            return new String[]{"LIST"};
-        case TODO:
-        case DEADLINE:
-        case EVENT:
+            return new ListCommand(echo);
+        case TODO, DEADLINE, EVENT:
             if (parts.length < 2 || parts[1].isEmpty()) {
                 throw new EchoException("Wait a min! Your description cannot be empty!");
             }
-            switch (command) {
+            switch (action) {
             case TODO:
-                return new String[]{"TODO", parts[1]};
+                return new ToDoCommand(echo, parts[1]);
             case DEADLINE:
                 String[] deadlineParts = parts[1].split(" /by ");
                 if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
                     throw new EchoException("Wait a min! Your deadline cannot be empty!");
                 }
-                return new String[]{ "DEADLINE", deadlineParts[0], deadlineParts[1]};
+                return new DeadlineCommand(echo, deadlineParts[0], deadlineParts[1]);
             case EVENT:
                 String[] eventParts = parts[1].split(" /from ");
                 String[] fromToParts = eventParts[1].split(" /to ");
                 if (fromToParts[0].isEmpty() || fromToParts[1].isEmpty()) {
                     throw new EchoException("Wait a min! Your to and from cannot be empty");
                 }
-                return new String[]{"EVENT", eventParts[0], fromToParts[0], fromToParts[1]};
+                return new EventCommand(echo, eventParts[0], fromToParts[0], fromToParts[1]);
             }
         case MARK:
-            return new String[]{"MARK", parts[1]};
+            int markIndex = Integer.parseInt(parts[1]);
+            return new MarkCommand(echo, markIndex);
         case UNMARK:
-            return new String[]{"UNMARK", parts[1]};
+            int unmarkIndex = Integer.parseInt(parts[1]);
+            return new UnmarkCommand(echo, unmarkIndex);
         case DELETE:
-            return new String[]{"DELETE", parts[1]};
+            int deleteIndex = Integer.parseInt(parts[1]);
+            return new DeleteCommand(echo, deleteIndex);
         case FIND:
-            return new String[]{"FIND", parts[1]};
+            return new FindCommand(echo,parts[1]);
         default:
-            return new String[]{"DEFAULT"};
+            return null;
         }
     }
 }

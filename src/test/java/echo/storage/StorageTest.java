@@ -1,13 +1,14 @@
 package echo.storage;
 
-import echo.tasklist.TaskList;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import echo.tasklist.TaskList;
 
 public class StorageTest {
     @TempDir
@@ -21,7 +22,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testReadFile() throws java.io.IOException{
+    public void testReadFile() throws java.io.IOException {
         Storage storage = new Storage("tempDir/echo.txt");
         File f = new File("tempDir/echo.txt");
         f.createNewFile();
