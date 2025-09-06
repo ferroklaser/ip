@@ -45,6 +45,11 @@ public class Echo {
     }
 
     public String getResponse(String input) {
-        return "Echo heard: " + input;
+        try {
+            Command command = Parser.parse(this, input);
+            return command.execute();
+        } catch (EchoException | IllegalArgumentException error) {
+            return error.getMessage();
+        }
     }
 }
