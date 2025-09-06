@@ -103,6 +103,18 @@ public class Echo {
         }
     }
 
+    public TaskList getTasklist() {
+        return this.tasklist;
+    }
+
+    public UI getUi() {
+        return this.ui;
+    }
+
+    public Storage getStorage() {
+        return this.storage;
+    }
+
     public String getResponse(String input) {
         return "Echo heard: " + input;
     }

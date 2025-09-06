@@ -58,18 +58,22 @@ public class TaskList {
         return this.taskList;
     }
 
-    public List<Task> getTasksWithKeyword(String keyword) {
-        return this.taskList.stream().filter(task -> task.hasKeyword(keyword)).toList();
+    public TaskList getTasksWithKeyword(String keyword) {
+        return new TaskList(this.taskList.stream().filter(task -> task.hasKeyword(keyword)).toList());
     }
 
     /**
      * Prints every task in the list.
      */
-    public static void printList(List<Task> list) {
+    public static String printList(TaskList list) {
         int index = 1;
-        for (Task task : list) {
-            System.out.println(index + "." + task);
+        StringBuilder msg = new StringBuilder();
+        List<Task> tasks = list.getList();
+
+        for (Task task : tasks) {
+            msg.append(index).append(".").append(task).append("\n");
             index++;
         }
+        return msg.toString();
     }
 }
