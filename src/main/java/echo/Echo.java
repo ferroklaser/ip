@@ -47,6 +47,9 @@ public class Echo {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(this, input);
+            if (command == null) {
+                return "I'm not sure I can do that.";
+            }
             return command.execute();
         } catch (EchoException | IllegalArgumentException error) {
             return error.getMessage();

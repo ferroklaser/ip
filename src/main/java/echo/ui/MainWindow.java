@@ -1,12 +1,15 @@
 package echo.ui;
 
 import echo.Echo;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class MainWindow {
     @FXML
@@ -27,6 +30,13 @@ public class MainWindow {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getEchoDialog(
+                        "Echo Echo reporting for duty!",
+                        echoImage
+                )
+        );
     }
 
     /** Injects the Echo instance */
@@ -47,5 +57,11 @@ public class MainWindow {
                 DialogBox.getEchoDialog(response, echoImage)
         );
         userInput.clear();
+
+        if (response.equals("Echo Echo...going back into the Omnitrix! See you soon!\n")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 }

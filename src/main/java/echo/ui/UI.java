@@ -23,12 +23,12 @@ public class UI {
     }
 
     public void showWelcome() {
-        System.out.println("Hello, I'm Echo.");
+        System.out.println("Hello, I'm Echo Echo.");
         System.out.println("What can I do for you today?");
     }
 
     public String showExit() {
-        return "Byeee, cya!\n";
+        return "Echo Echo...going back into the Omnitrix! See you soon!\n";
     }
 
     public String showList(TaskList list) {
@@ -59,17 +59,17 @@ public class UI {
 
     public String showDeletedTask(Task task) {
         StringBuilder msg = new StringBuilder();
-        msg.append("Task has been removed\n");
+        msg.append("Destroying task....AHHHHHH!\n");
         msg.append("  ").append(task).append("\n");
         return msg.toString();
     }
 
     public String showAddTask(Task task) {
-        return "Ok, I've added this task for you\n   " + task + "\n";
+        return "Task Added! Task Added!\n" + task + "\n";
     }
 
     public String showListSize(TaskList taskList) {
-        return "Now you have " + taskList.getSize() + " tasks in the list.\n";
+        return "Now you have " + taskList.getSize() + " tasks in your list.\n";
     }
 
 }

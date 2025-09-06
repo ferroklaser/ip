@@ -2,14 +2,12 @@ package echo.command;
 
 import echo.Echo;
 
-public class Command {
+public abstract class Command {
     protected Echo echo;
 
     public Command(Echo echo) {
         this.echo = echo;
     }
 
-    public String execute() {
-        return "";
-    };
+    public abstract String execute();
 }

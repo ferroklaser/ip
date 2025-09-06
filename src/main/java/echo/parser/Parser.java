@@ -81,7 +81,7 @@ public class Parser {
         case FIND:
             return new FindCommand(echo,parts[1]);
         default:
-            return new Command(echo);
+            return null;
         }
     }
 }
