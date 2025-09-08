@@ -1,6 +1,7 @@
 .root {
     main-color: rgb(237, 255, 242);
-    -fx-background-color: main-color;
+    -fx-background-color: linear-gradient(to bottom, #222222, #328336);
+
 }
 
 .text-field {
@@ -28,7 +29,6 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
     -fx-background-radius: 1em;
 }
 
