@@ -1,6 +1,5 @@
 package echo.ui;
 
-import java.util.List;
 import java.util.Scanner;
 
 import echo.task.Task;

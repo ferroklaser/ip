@@ -71,12 +71,15 @@ public class Parser {
             }
         case MARK:
             int markIndex = Integer.parseInt(parts[1]);
+            assert markIndex > 0: "index of item to mark must be greater than 0";
             return new MarkCommand(echo, markIndex);
         case UNMARK:
             int unmarkIndex = Integer.parseInt(parts[1]);
+            assert unmarkIndex > 0: "index of item to unmark must be greater than 0";
             return new UnmarkCommand(echo, unmarkIndex);
         case DELETE:
             int deleteIndex = Integer.parseInt(parts[1]);
+            assert deleteIndex > 0: "index of item to delete must be greater than 0";
             return new DeleteCommand(echo, deleteIndex);
         case FIND:
             return new FindCommand(echo,parts[1]);

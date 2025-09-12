@@ -11,7 +11,6 @@ import echo.task.Task;
  * Represents a command to add a deadline task. A <code>DeadlineCommand</code> object
  * is a subtype of <code>Command</code> and stores a string instruction and a string due date
  */
-
 public class DeadlineCommand extends Command {
     private final String instruction;
     private final String by;
