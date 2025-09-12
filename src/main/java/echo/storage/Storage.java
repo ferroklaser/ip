@@ -54,33 +54,24 @@ public class Storage {
             Scanner scanner = new Scanner(this.file);
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-
                 String[] parts = line.split(" \\| ");
                 switch (parts[0]) {
                 case "T":
                     Task todoTask = new Todo(parts[2]);
-                    if (parts[1].equals("1")) {
-                        todoTask.markAsDone();
-                    }
+                    markTaskIfDone(todoTask, parts[1]);
                     list.add(todoTask);
                     break;
                 case "D":
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-                    LocalDateTime deadline = LocalDateTime.parse(parts[3], formatter);
+                    LocalDateTime deadline = formatDateTime(parts[3]);
                     Task deadlineTask = new Deadline(parts[2], deadline);
-                    if (parts[1].equals("1")) {
-                        deadlineTask.markAsDone();
-                    }
+                    markTaskIfDone(deadlineTask, parts[1]);
                     list.add(deadlineTask);
                     break;
                 case "E":
-                    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-                    LocalDateTime start = LocalDateTime.parse(parts[3], formatter1);
-                    LocalDateTime end = LocalDateTime.parse(parts[4], formatter1);
+                    LocalDateTime start = formatDateTime(parts[3]);
+                    LocalDateTime end = formatDateTime(parts[4]);
                     Task eventTask = new Event(parts[2], start, end);
-                    if (parts[1].equals("1")) {
-                        eventTask.markAsDone();
-                    }
+                    markTaskIfDone(eventTask, parts[1]);
                     list.add(eventTask);
                     break;
                 }
@@ -112,4 +103,27 @@ public class Storage {
     }
 
 
+    /**
+     * Marks isDone of task depending on whether task was marked as "1" or "0" where
+     * "1" indicates true and "0" indicates false
+     *
+     * @param task Task
+     * @param status "0" or "1"
+     */
+    private static void markTaskIfDone(Task task, String status) {
+        if (status.equals("1")) {
+            task.markAsDone();
+        }
+    }
+
+    /**
+     * Formats the date and time stored in file and returns a LocalDateTime object
+     *
+     * @param dateTime Date and Time
+     * @return LocalDateTime date and time
+     */
+    private static LocalDateTime formatDateTime(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+        return LocalDateTime.parse(dateTime, formatter);
+    }
 }

@@ -11,19 +11,10 @@ import echo.tasklist.TaskList;
  * stores a <code>Scanner</code> scanner.
  */
 public class UI {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public UI() {
         this.scanner = new Scanner(System.in);
-    }
-
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    public void showWelcome() {
-        System.out.println("Hello, I'm Echo Echo.");
-        System.out.println("What can I do for you today?");
     }
 
     public String showExit() {
