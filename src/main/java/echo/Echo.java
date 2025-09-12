@@ -18,20 +18,6 @@ public class Echo {
         this.tasklist = new TaskList(this.storage.readFile());
     }
 
-    public void run() {
-        this.ui.showWelcome();
-
-        while (true) {
-            try {
-                String input = this.ui.readCommand();
-                Command command = Parser.parse(this, input);
-                command.execute();
-            } catch (EchoException | IllegalArgumentException error) {
-                System.out.println(error.getMessage());
-            }
-        }
-    }
-
     public TaskList getTasklist() {
         return this.tasklist;
     }

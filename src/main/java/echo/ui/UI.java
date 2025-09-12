@@ -12,7 +12,7 @@ import echo.tasklist.TaskList;
  * stores a <code>Scanner</code> scanner.
  */
 public class UI {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public UI() {
         this.scanner = new Scanner(System.in);

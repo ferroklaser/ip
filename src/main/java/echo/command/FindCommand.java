@@ -4,7 +4,7 @@ import echo.Echo;
 import echo.tasklist.TaskList;
 
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     public FindCommand(Echo echo, String keyword) {
         super(echo);
