@@ -58,6 +58,12 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Returns a filtered task list based on whether keyword exists in description of task
+     *
+     * @param keyword Word to be found
+     * @return TaskList
+     */
     public TaskList getTasksWithKeyword(String keyword) {
         return new TaskList(this.taskList.stream().filter(task -> task.hasKeyword(keyword)).toList());
     }
