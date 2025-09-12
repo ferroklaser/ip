@@ -52,7 +52,6 @@ public class Storage {
             Scanner scanner = new Scanner(this.file);
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-
                 String[] parts = line.split(" \\| ");
                 switch (parts[0]) {
                 case "T":
