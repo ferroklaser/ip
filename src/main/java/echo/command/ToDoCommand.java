@@ -4,6 +4,10 @@ import echo.Echo;
 import echo.task.Task;
 import echo.task.Todo;
 
+/**
+ * Represents a command to add a to-do task. A <code>TodoCommand</code> object
+ * is a subtype of <code>Command</code> and it stores string instruction.
+ */
 public class ToDoCommand extends Command {
     private final String instruction;
 

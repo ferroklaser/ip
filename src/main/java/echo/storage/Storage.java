@@ -33,8 +33,10 @@ public class Storage {
                 File parentFile = file.getParentFile();
                 if (parentFile != null && !parentFile.exists()) {
                     boolean newDir = parentFile.mkdirs();
+                    assert newDir: "Unable to create new directory";
                 }
                 boolean newFile = file.createNewFile();
+                assert newFile: "Unable to create new file";
             } catch (IOException error) {
                 System.out.println("Unable to create new file!");
             }
