@@ -3,8 +3,12 @@ package echo.command;
 import echo.Echo;
 import echo.tasklist.TaskList;
 
+/**
+ * Represents a command to find tasks containing the keyword. A <code>FindCommand</code>
+ * is a subtype of <code>Command</code> and stores a string keyword.
+ */
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     public FindCommand(Echo echo, String keyword) {
         super(echo);

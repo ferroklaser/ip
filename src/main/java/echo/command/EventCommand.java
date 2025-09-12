@@ -7,10 +7,15 @@ import echo.Echo;
 import echo.task.Event;
 import echo.task.Task;
 
+/**
+ * Represents a command to add an event task. A <code>EventCommand</code> object is a
+ * subtype of <code>Command</code> and stores a string instruction,
+ * string from and string to.
+ */
 public class EventCommand extends Command {
-    private String instruction;
-    private String from;
-    private String to;
+    private final String instruction;
+    private final String from;
+    private final String to;
 
     public EventCommand(Echo echo, String instruction, String from, String to) {
         super(echo);
