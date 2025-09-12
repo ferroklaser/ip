@@ -25,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Removes task with the corresponding index - 1from the stored
+     * Removes task with the corresponding index - 1 from the stored
      * list of tasks and returns it.
      *
      * @param index Position of task to be removed from the list, indexed at 1.
