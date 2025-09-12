@@ -18,15 +18,6 @@ public class UI {
         this.scanner = new Scanner(System.in);
     }
 
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    public void showWelcome() {
-        System.out.println("Hello, I'm Echo Echo.");
-        System.out.println("What can I do for you today?");
-    }
-
     public String showExit() {
         return "Echo Echo...going back into the Omnitrix! See you soon!\n";
     }
