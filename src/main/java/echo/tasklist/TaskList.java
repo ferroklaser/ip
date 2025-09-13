@@ -86,12 +86,11 @@ public class TaskList {
     }
 
     public TaskList getSortedListBasedOnType() {
-        List<Task> list = this.taskList;
-        list.sort((o1, o2) -> {
+        this.taskList.sort((o1, o2) -> {
             Integer val1 = o1.getOrder();
             Integer val2 = o2.getOrder();
             return Integer.compare(val1, val2);
         });
-        return new TaskList(list);
+        return this;
     }
 }
