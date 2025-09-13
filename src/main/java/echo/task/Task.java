@@ -1,5 +1,7 @@
 package echo.task;
 
+import java.util.Map;
+
 /**
  * Represents a task created by the user. A <code>Task</code> object
  * stores a String <code>description</code> and boolean flag <code>isDone</code>
@@ -13,6 +15,12 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public static final Map<Class<? extends Task>, Integer> taskTypeMapping = Map.of(
+            Todo.class, 0,
+            Deadline.class, 1,
+            Event.class, 2
+    );
 
     /**
      * Returns the corresponding icon based on isDone boolean
@@ -40,6 +48,10 @@ public class Task {
 
     public void markAsUndone() {
         this.isDone = false;
+    }
+
+    public Integer getOrder() {
+        return taskTypeMapping.getOrDefault(this.getClass(), Integer.MAX_VALUE);
     }
 
     /**

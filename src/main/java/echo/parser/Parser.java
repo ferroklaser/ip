@@ -9,6 +9,7 @@ import echo.command.EventCommand;
 import echo.command.FindCommand;
 import echo.command.ListCommand;
 import echo.command.MarkCommand;
+import echo.command.SortCommand;
 import echo.command.ToDoCommand;
 import echo.command.UnmarkCommand;
 import echo.echoexception.EchoException;
@@ -23,6 +24,7 @@ enum Action {
     UNMARK,
     DELETE,
     FIND,
+    SORT,
     DEFAULT
 }
 
@@ -83,6 +85,8 @@ public class Parser {
             return new DeleteCommand(echo, deleteIndex);
         case FIND:
             return new FindCommand(echo,parts[1]);
+        case SORT:
+            return new SortCommand(echo);
         default:
             return null;
         }

@@ -1,15 +1,15 @@
 package echo.tasklist;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import echo.task.Task;
-
 /**
  * Represents a task list. A <code>TaskList</code> object stores the list of tasks.
  */
 public class TaskList {
-    private List<Task> taskList;
+    private final List<Task> taskList;
 
     public TaskList(List<? extends Task> taskList) {
        this.taskList = new ArrayList<>(taskList);
@@ -70,6 +70,8 @@ public class TaskList {
 
     /**
      * Prints every task in the list.
+     *
+     * @return String containing all tasks
      */
     public static String printList(TaskList list) {
         int index = 1;
@@ -81,5 +83,14 @@ public class TaskList {
             index++;
         }
         return msg.toString();
+    }
+
+    public TaskList getSortedListBasedOnType() {
+        this.taskList.sort((o1, o2) -> {
+            Integer val1 = o1.getOrder();
+            Integer val2 = o2.getOrder();
+            return Integer.compare(val1, val2);
+        });
+        return this;
     }
 }
