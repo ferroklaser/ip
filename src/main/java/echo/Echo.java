@@ -15,7 +15,7 @@ public class Echo {
     public Echo() {
         this.storage = new Storage("data/echo.txt");
         this.ui = new UI();
-        this.tasklist = new TaskList(this.storage.readFile());
+        this.tasklist = this.storage.readFile();
     }
 
     public TaskList getTasklist() {

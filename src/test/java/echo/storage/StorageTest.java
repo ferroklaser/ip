@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -21,34 +20,25 @@ public class StorageTest {
     @TempDir
     Path tempDir;
 
-    @BeforeEach
-    public void clearFile() {
-        File file = new File("tempDir/echo.txt");
-        if (file.exists()) {
-            file.delete();
-        }
-    }
-
     @Test
     public void testConstructor() {
-        new Storage("tempDir/echo.txt");
-        File f = new File("tempDir/echo.txt");
+        File f = tempDir.resolve("tempDir/echo.txt").toFile();
+        new Storage(f.getAbsolutePath());
         assertTrue(f.exists());
     }
 
     @Test
-    public void testReadFile() throws java.io.IOException {
-        Storage storage = new Storage("tempDir/echo.txt");
-        File f = new File("tempDir/echo.txt");
-        f.createNewFile();
+    public void testEmptyFile()  {
+        File f = tempDir.resolve("tempDir/echo.txt").toFile();
+        Storage storage = new Storage(f.getAbsolutePath());
         TaskList list = new TaskList(storage.readFile());
         assertTrue(list.getList().isEmpty());
     }
 
     @Test
-    public void testSaveFile() {
-        Storage storage = new Storage("tempDir/echo.txt");
-        File f = new File("tempDir/echo.txt");
+    public void testSaveReadFile() {
+        File f = tempDir.resolve("tempDir/echo.txt").toFile();
+        Storage storage = new Storage(f.getAbsolutePath());
 
         Task task1 = new Todo("description");
         Task task2 = new Deadline("description",
