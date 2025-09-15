@@ -31,7 +31,7 @@ public class StorageTest {
     public void testEmptyFile()  {
         File f = tempDir.resolve("tempDir/echo.txt").toFile();
         Storage storage = new Storage(f.getAbsolutePath());
-        TaskList list = new TaskList(storage.readFile());
+        TaskList list = new TaskList(storage.readFile().getList());
         assertTrue(list.getList().isEmpty());
     }
 
@@ -45,9 +45,9 @@ public class StorageTest {
                 LocalDateTime.of(2025, 9, 15, 23, 59));
 
         List<Task> list = List.of(task1, task2);
-        storage.saveFile(list);
+        storage.saveFile(new TaskList(list));
 
-        List<Task> savedList = storage.readFile();
+        List<Task> savedList = storage.readFile().getList();
 
         assertEquals(2, savedList.size());
         assertEquals("description", savedList.get(0).getDescription());
