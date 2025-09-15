@@ -84,7 +84,7 @@ public class Parser {
             assert deleteIndex > 0: "index of item to delete must be greater than 0";
             return new DeleteCommand(echo, deleteIndex);
         case FIND:
-            return new FindCommand(echo,parts[1]);
+            return new FindCommand(echo, parts[1]);
         case SORT:
             return new SortCommand(echo);
         default:

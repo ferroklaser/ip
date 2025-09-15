@@ -50,6 +50,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public Integer getOrder() {
         return taskTypeMapping.getOrDefault(this.getClass(), Integer.MAX_VALUE);
     }

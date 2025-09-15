@@ -1,5 +1,6 @@
 package echo.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -16,5 +17,23 @@ public class TaskTest {
 
         task.markAsUndone();
         assertFalse(task.isDone);
+    }
+
+    @Test
+    public void testStatusIcon() {
+        Task task = new Task("description");
+        assertEquals(" ", task.getStatusIcon());
+
+        task.markAsDone();
+        assertEquals("X", task.getStatusIcon());
+    }
+
+    @Test
+    public void testStatusNumber() {
+        Task task = new Task("description");
+        assertEquals("0", task.getStatusNumber());
+
+        task.markAsDone();
+        assertEquals("1", task.getStatusNumber());
     }
 }
