@@ -14,6 +14,9 @@ import echo.command.ToDoCommand;
 import echo.command.UnmarkCommand;
 import echo.echoexception.EchoException;
 
+/**
+ * Represents action the user can enter for the command
+ */
 enum Action {
     BYE,
     LIST,
@@ -33,6 +36,8 @@ enum Action {
  */
 public class Parser {
     /**
+     * Parses the input from the user and returns the corresponding command
+     *
      * @param input Input string to be parsed.
      * @return array A String array representing parsed commands and arguments.
      * @throws EchoException if description, date or time are missing for task creation.
