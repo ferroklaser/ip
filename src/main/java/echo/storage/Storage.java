@@ -14,6 +14,7 @@ import echo.task.Deadline;
 import echo.task.Event;
 import echo.task.Task;
 import echo.task.Todo;
+import echo.tasklist.TaskList;
 
 /**
  *  Represents persistent storage to store and retrieve user tasks.
@@ -23,7 +24,7 @@ import echo.task.Todo;
  *  from which the information is retrieved.
  */
 public class Storage {
-    private File file;
+    private final File file;
 
     public Storage(String path) {
         this.file = new File(path);
@@ -44,11 +45,11 @@ public class Storage {
     }
 
     /**
-     * Returns a list of tasks after reading the file from the storage.
+     * Returns a task list after reading the file from the storage.
      *
-     * @return tasks List of tasks stored in file.
+     * @return task list of tasks stored in file.
      */
-    public List<Task> readFile() {
+    public TaskList readFile() {
         ArrayList<Task> list = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(this.file);
@@ -80,17 +81,18 @@ public class Storage {
         } catch (FileNotFoundException error) {
             System.out.println("File not found exception");
         }
-        return list;
+        return new TaskList(list);
     }
 
     /**
      * Saves the given list of tasks by writing it onto the storage file
      *
-     * @param list The list of tasks to be stored
+     * @param taskList The list of tasks to be stored
      */
-    public void saveFile(List<Task> list) {
+    public void saveFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(this.file);
+            List<Task> list = taskList.getList();
 
             for (Task task : list) {
                 fw.write(task.toDataString());

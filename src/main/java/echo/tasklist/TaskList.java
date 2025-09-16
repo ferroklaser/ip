@@ -1,7 +1,6 @@
 package echo.tasklist;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import echo.task.Task;
@@ -85,6 +84,11 @@ public class TaskList {
         return msg.toString();
     }
 
+    /**
+     * Returns a TaskList with tasks sorted in type order: To-do, Deadline, Event
+     *
+     * @return sorted TaskList
+     */
     public TaskList getSortedListBasedOnType() {
         this.taskList.sort((o1, o2) -> {
             Integer val1 = o1.getOrder();

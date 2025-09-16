@@ -14,6 +14,9 @@ import echo.command.ToDoCommand;
 import echo.command.UnmarkCommand;
 import echo.echoexception.EchoException;
 
+/**
+ * Represents action the user can enter for the commandgit
+ */
 enum Action {
     BYE,
     LIST,
@@ -33,6 +36,8 @@ enum Action {
  */
 public class Parser {
     /**
+     * Parses the input from the user and returns the corresponding command
+     *
      * @param input Input string to be parsed.
      * @return array A String array representing parsed commands and arguments.
      * @throws EchoException if description, date or time are missing for task creation.
@@ -84,7 +89,7 @@ public class Parser {
             assert deleteIndex > 0: "index of item to delete must be greater than 0";
             return new DeleteCommand(echo, deleteIndex);
         case FIND:
-            return new FindCommand(echo,parts[1]);
+            return new FindCommand(echo, parts[1]);
         case SORT:
             return new SortCommand(echo);
         default:

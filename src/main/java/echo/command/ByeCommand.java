@@ -13,7 +13,7 @@ public class ByeCommand extends Command {
 
     @Override
     public String execute() {
-        this.echo.getStorage().saveFile(echo.getTasklist().getList());
+        this.echo.getStorage().saveFile(echo.getTasklist());
         return echo.getUi().showExit();
     }
 }
