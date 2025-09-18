@@ -30,6 +30,12 @@ public class Echo {
         return this.storage;
     }
 
+    /**
+     * Returns the corresponding text output based on the user's input
+     *
+     * @param input String input by the user
+     * @return Response to be shown to user
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(this, input);
