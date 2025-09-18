@@ -28,7 +28,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testEmptyFile()  {
+    public void testEmptyFile() {
         File f = tempDir.resolve("tempDir/echo.txt").toFile();
         Storage storage = new Storage(f.getAbsolutePath());
         TaskList list = new TaskList(storage.readFile().getList());
