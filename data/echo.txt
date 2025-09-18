@@ -1,5 +1,5 @@
 T | 0 | run
 T | 1 | lunch
 T | 1 | eat
-D | 0 | eat chocolate | 29/08/2025 1800
 E | 0 | tutorial | 4/09/2025 1100 | 4/09/2025 1200
+T | 0 | sleep

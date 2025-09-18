@@ -23,43 +23,43 @@ public class UI {
 
     public String showList(TaskList list) {
         String msg = TaskList.printList(list);
-        msg = "Let's take a look at the tasks in your list:\n" + msg + "\n";
+        msg = "Mission briefing! Here are your Alien tasks Ben:\n" + msg + "\n";
         return msg;
     }
 
     public String showKeywordList(TaskList list) {
         String msg = TaskList.printList(list);
-        msg = "Here are the matching tasks in your list:\n" + msg + "\n";
+        msg = "Incoming! Matching aliens detected on your list:\n" + msg + "\n";
         return msg;
     }
 
     public String showMarkedTask(Task task) {
         StringBuilder msg = new StringBuilder();
-        msg.append("Good job! I've marked this task as done:\n");
+        msg.append("Boom! Mission Accomplished! Alien task contained!:\n");
         msg.append("  ").append(task).append("\n");
         return msg.toString();
     }
 
     public String showUnmarkedTask(Task task) {
         StringBuilder msg = new StringBuilder();
-        msg.append("Fine, I'll unmark this task for you:\n");
+        msg.append("Uh-oh! Uh-oh! Mission reset! Alien task has escaped!:\n");
         msg.append("  ").append(task).append("\n");
         return msg.toString();
     }
 
     public String showDeletedTask(Task task) {
         StringBuilder msg = new StringBuilder();
-        msg.append("Destroying task....AHHHHHH!\n");
+        msg.append("Destroying Alien task....AHHHHHH!\n");
         msg.append("  ").append(task).append("\n");
         return msg.toString();
     }
 
     public String showAddTask(Task task) {
-        return "Task Added! Task Added!\n" + task + "\n";
+        return "Alien task added! Alien task added!\n" + task + "\n";
     }
 
     public String showListSize(TaskList taskList) {
-        return "Now you have " + taskList.getSize() + " tasks in your list.\n";
+        return "Now you have " + taskList.getSize() + " Alien tasks to contain.\n";
     }
 
 }
