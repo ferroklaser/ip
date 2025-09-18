@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import echo.echoexception.EchoException;
 import echo.task.Deadline;
 import echo.task.Event;
 import echo.task.Task;
@@ -26,7 +27,7 @@ import echo.tasklist.TaskList;
 public class Storage {
     private final File file;
 
-    public Storage(String path) {
+    public Storage(String path) throws EchoException {
         this.file = new File(path);
 
         if (!file.exists()) {
@@ -39,7 +40,7 @@ public class Storage {
                 boolean newFile = file.createNewFile();
                 assert newFile : "Unable to create new file";
             } catch (IOException error) {
-                System.out.println("Unable to create new file!");
+                throw new EchoException("I'm unable to create a containment for your tasks");
             }
         }
     }
@@ -49,7 +50,7 @@ public class Storage {
      *
      * @return task list of tasks stored in file.
      */
-    public TaskList readFile() {
+    public TaskList readFile() throws EchoException {
         ArrayList<Task> list = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(this.file);
@@ -79,7 +80,7 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException error) {
-            System.out.println("File not found exception");
+            throw new EchoException("I am unable to find the containment for your Alien tasks");
         }
         return new TaskList(list);
     }
@@ -89,7 +90,7 @@ public class Storage {
      *
      * @param taskList The list of tasks to be stored
      */
-    public void saveFile(TaskList taskList) {
+    public void saveFile(TaskList taskList) throws EchoException {
         try {
             FileWriter fw = new FileWriter(this.file);
             List<Task> list = taskList.getList();
@@ -100,7 +101,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new EchoException("I am unable to send your Alien tasks into the Null Void for storage");
         }
     }
 

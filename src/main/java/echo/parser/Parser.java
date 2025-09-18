@@ -15,7 +15,7 @@ import echo.command.UnmarkCommand;
 import echo.echoexception.EchoException;
 
 /**
- * Represents action the user can enter for the commandgit
+ * Represents action the user can enter for the command
  */
 enum Action {
     BYE,
