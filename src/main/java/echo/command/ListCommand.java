@@ -13,6 +13,6 @@ public class ListCommand extends Command {
 
     @Override
     public String execute() {
-        return echo.getUi().showList(this.echo.getTasklist()) ;
+        return echo.getUi().showList(this.echo.getTasklist());
     }
 }

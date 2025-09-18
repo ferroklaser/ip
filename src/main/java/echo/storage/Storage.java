@@ -2,8 +2,8 @@ package echo.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,10 +34,10 @@ public class Storage {
                 File parentFile = file.getParentFile();
                 if (parentFile != null && !parentFile.exists()) {
                     boolean newDir = parentFile.mkdirs();
-                    assert newDir: "Unable to create new directory";
+                    assert newDir : "Unable to create new directory";
                 }
                 boolean newFile = file.createNewFile();
-                assert newFile: "Unable to create new file";
+                assert newFile : "Unable to create new file";
             } catch (IOException error) {
                 System.out.println("Unable to create new file!");
             }

@@ -8,6 +8,11 @@ import java.util.Map;
  * indicating whether a task has been completed.
  */
 public class Task {
+    public static final Map<Class<? extends Task>, Integer> TASK_TYPE_MAPPING = Map.of(
+            Todo.class, 0,
+            Deadline.class, 1,
+            Event.class, 2
+    );
     protected String description;
     protected boolean isDone;
 
@@ -16,11 +21,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public static final Map<Class<? extends Task>, Integer> taskTypeMapping = Map.of(
-            Todo.class, 0,
-            Deadline.class, 1,
-            Event.class, 2
-    );
+
 
     /**
      * Returns the corresponding icon based on isDone boolean
@@ -55,7 +56,7 @@ public class Task {
     }
 
     public Integer getOrder() {
-        return taskTypeMapping.getOrDefault(this.getClass(), Integer.MAX_VALUE);
+        return TASK_TYPE_MAPPING.getOrDefault(this.getClass(), Integer.MAX_VALUE);
     }
 
     /**

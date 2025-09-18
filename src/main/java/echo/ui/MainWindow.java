@@ -11,6 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+/**
+ * Represents the Main Window of the chatbot. The <code>MainWindow</code> class
+ * provides method to handle user input and generates dialog box according to the response.
+ */
 public class MainWindow {
     @FXML
     private ScrollPane scrollPane;
@@ -27,6 +31,10 @@ public class MainWindow {
     private Image echoImage = new Image(
             this.getClass().getResourceAsStream("/images/Echo.png"));
 
+    /**
+     * Initialises the main window upon launching the application with opening
+     * message from Echo
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
