@@ -57,7 +57,9 @@ public class Parser {
             return new ListCommand(echo);
         case TODO, DEADLINE, EVENT:
             if (parts.length < 2 || parts[1].isEmpty()) {
-                throw new EchoException("Wait a min! Your description cannot be empty!");
+                throw new EchoException("Oops! The correct format is:\n "
+                        + "  todo <description>\n"
+                        + "Example: todo read book");
             }
             switch (action) {
             case TODO:

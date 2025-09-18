@@ -27,7 +27,7 @@ import echo.tasklist.TaskList;
 public class Storage {
     private final File file;
 
-    public Storage(String path) throws EchoException {
+    public Storage(String path) {
         this.file = new File(path);
 
         if (!file.exists()) {
@@ -40,7 +40,7 @@ public class Storage {
                 boolean newFile = file.createNewFile();
                 assert newFile : "Unable to create new file";
             } catch (IOException error) {
-                throw new EchoException("I'm unable to create a containment for your tasks");
+                System.out.println("I'm unable to create a containment for your tasks. Unable to create new file");
             }
         }
     }
@@ -50,7 +50,7 @@ public class Storage {
      *
      * @return task list of tasks stored in file.
      */
-    public TaskList readFile() throws EchoException {
+    public TaskList readFile() {
         ArrayList<Task> list = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(this.file);
@@ -80,7 +80,7 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException error) {
-            throw new EchoException("I am unable to find the containment for your Alien tasks");
+            System.out.println("I am unable to find the containment for your Alien tasks");
         }
         return new TaskList(list);
     }
@@ -90,7 +90,7 @@ public class Storage {
      *
      * @param taskList The list of tasks to be stored
      */
-    public void saveFile(TaskList taskList) throws EchoException {
+    public void saveFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(this.file);
             List<Task> list = taskList.getList();
@@ -101,7 +101,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new EchoException("I am unable to send your Alien tasks into the Null Void for storage");
+            System.out.println("I am unable to send your Alien tasks into the Null Void for storage");
         }
     }
 
