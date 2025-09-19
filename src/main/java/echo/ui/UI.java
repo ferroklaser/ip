@@ -29,7 +29,7 @@ public class UI {
      */
     public String showList(TaskList list) {
         String msg = TaskList.printList(list);
-        msg = "Mission briefing! Here are your Alien tasks Ben:\n" + msg + "\n";
+        msg = "Mission briefing! Here are your aliens to capture Ben:\n" + msg + "\n";
         return msg;
     }
 
@@ -53,7 +53,7 @@ public class UI {
      */
     public String showMarkedTask(Task task) {
         StringBuilder msg = new StringBuilder();
-        msg.append("Boom! Mission Accomplished! Alien task contained!:\n");
+        msg.append("Boom! Mission Accomplished! Alien contained!:\n");
         msg.append("  ").append(task).append("\n");
         return msg.toString();
     }
@@ -66,7 +66,7 @@ public class UI {
      */
     public String showUnmarkedTask(Task task) {
         StringBuilder msg = new StringBuilder();
-        msg.append("Uh-oh! Uh-oh! Mission reset! Alien task has escaped!:\n");
+        msg.append("Uh-oh! Uh-oh! Mission reset! Alien has escaped!:\n");
         msg.append("  ").append(task).append("\n");
         return msg.toString();
     }
@@ -91,7 +91,7 @@ public class UI {
      * @return message to be shown to user
      */
     public String showAddTask(Task task) {
-        return "Alien task added! Alien task added!\n" + task + "\n";
+        return "New alien added! New alien added!\n" + "  " + task + "\n";
     }
 
     /**
@@ -101,7 +101,10 @@ public class UI {
      * @return size of Task list as text to be shown to user
      */
     public String showListSize(TaskList taskList) {
-        return "Now you have " + taskList.getSize() + " Alien tasks to contain.\n";
+        if (taskList.getSize() == 1) {
+            return "Now you have " + taskList.getSize() + " alien to contain.\n";
+        }
+        return "Now you have " + taskList.getSize() + " aliens to contain.\n";
     }
 
 }
