@@ -1,6 +1,6 @@
 # Echo User Guide
 
-![UI Screenshot](./Ui.png)
+![UI Screenshot](docs/Ui.png)
 
 Meet Echo, a playful chatbot inspired by the sound-warping alien from *Ben-10*. In this universe, tasks are aliens, causing chaos everywhere, and 
 Echo is here to help you capture, organise and defeat them.
