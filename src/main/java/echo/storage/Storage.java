@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import echo.echoexception.EchoException;
 import echo.task.Deadline;
 import echo.task.Event;
 import echo.task.Task;

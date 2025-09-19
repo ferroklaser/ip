@@ -53,4 +53,30 @@ public class StorageTest {
         assertEquals("description", savedList.get(0).getDescription());
         assertEquals("description", savedList.get(1).getDescription());
     }
+
+    @Test
+    public void testMultipleSavesOverwriteFile() {
+        File f = tempDir.resolve("tempDir/echo.txt").toFile();
+        Storage storage = new Storage(f.getAbsolutePath());
+
+        storage.saveFile(new TaskList(List.of(new Todo("task1"), new Todo("task2"))));
+        storage.saveFile(new TaskList(List.of(new Todo("only task"))));
+
+        List<Task> savedList = storage.readFile().getList();
+        assertEquals(1, savedList.size());
+        assertEquals("only task", savedList.get(0).getDescription());
+    }
+
+    @Test
+    public void testSpecialCharactersInDescription() {
+        File f = tempDir.resolve("echo.txt").toFile();
+        Storage storage = new Storage(f.getAbsolutePath());
+
+        String specialDescription = "hello, world |with|pipes";
+        storage.saveFile(new TaskList(List.of(new Todo(specialDescription))));
+
+        List<Task> savedList = storage.readFile().getList();
+        assertEquals(1, savedList.size());
+        assertEquals(specialDescription, savedList.get(0).getDescription());
+    }
 }
