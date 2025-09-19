@@ -21,8 +21,6 @@ public class Task {
         this.isDone = false;
     }
 
-
-
     /**
      * Returns the corresponding icon based on isDone boolean
      * "X" if isDone is true, " " if isDone is false

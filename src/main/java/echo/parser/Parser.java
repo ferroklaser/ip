@@ -1,5 +1,9 @@
 package echo.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import echo.Echo;
 import echo.command.ByeCommand;
 import echo.command.Command;
@@ -98,30 +102,33 @@ public class Parser {
                     + "  deadline <description> /by <DD/MM/YYYY HHmm>\n"
                     + "Example: deadline read book /by 18/9/2025 1000");
         }
-        return new DeadlineCommand(echo, deadlineParts[0], deadlineParts[1]);
+        LocalDateTime by = parseDateTime(deadlineParts[1], "deadline");
+        return new DeadlineCommand(echo, deadlineParts[0], by);
     }
 
     private static Command parseEventCommand(Echo echo, String[] parts) throws EchoException {
         String[] eventParts = checkForArgs(parts, "event").split(" /from");
-        if (eventParts.length < 2) {
+        if (eventParts.length < 2 || eventParts[0].isEmpty()) {
             throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
                     + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
                     + "Example: event read book /from 18/9/2025 1000 /to 19/9/2025 1000");
         }
-        String[] fromToParts = eventParts[1].split(" /to ");
-        if (fromToParts[0].isEmpty() || fromToParts[1].isEmpty()) {
+        String[] fromToParts = eventParts[1].split(" /to ", 2);
+        if (fromToParts.length < 2 || fromToParts[0].isEmpty() || fromToParts[1].isEmpty()) {
             throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
                     + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
                     + "Example: event read book /from 18/9/2025 1000 /to 19/9/2025 1000");
         }
-        return new EventCommand(echo, eventParts[0], fromToParts[0], fromToParts[1]);
+        LocalDateTime from = parseDateTime(fromToParts[0], "event");
+        LocalDateTime to = parseDateTime(fromToParts[1], "event");
+        return new EventCommand(echo, eventParts[0], from, to);
     }
 
     private static int parsePositiveIndex(String[] parts, String command) throws EchoException {
         String indexString = checkForArgs(parts, command);
         try {
             int index = Integer.parseInt(indexString);
-            assert index <= 0: "index of item to " + command + " must be greater than 0";
+            assert index > 0: "index of item to " + command + " must be greater than 0";
             if (index <= 0) {
                 throw new EchoException("Index must POSITIVEEEEE!");
             }
@@ -135,4 +142,15 @@ public class Parser {
     private static Command parseFindCommand(Echo echo, String[] parts) throws EchoException {
         return new FindCommand(echo, checkForArgs(parts, "find"));
     }
+
+    private static LocalDateTime parseDateTime(String dateTime, String command) throws EchoException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+        try {
+            return LocalDateTime.parse(dateTime, formatter);
+        } catch (DateTimeParseException e) {
+            throw new EchoException("Invalid date-time format! Please provide BOTH date and time.\n" +
+                    "Example: " + command + " read book /by 18/09/2025 1000");
+        }
+    }
+
 }
