@@ -104,26 +104,12 @@ public class Storage {
         }
     }
 
-
-    /**
-     * Marks isDone of task depending on whether task was marked as "1" or "0" where
-     * "1" indicates true and "0" indicates false
-     *
-     * @param task Task
-     * @param status "0" or "1"
-     */
     private static void markTaskIfDone(Task task, String status) {
         if (status.equals("1")) {
             task.markAsDone();
         }
     }
 
-    /**
-     * Formats the date and time stored in file and returns a LocalDateTime object
-     *
-     * @param dateTime Date and Time
-     * @return LocalDateTime date and time
-     */
     private static LocalDateTime formatDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
         return LocalDateTime.parse(dateTime, formatter);

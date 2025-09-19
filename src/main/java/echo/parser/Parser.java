@@ -44,67 +44,91 @@ public class Parser {
      */
     public static Command parse(Echo echo, String input) throws EchoException {
         String[] parts = input.split(" ", 2);
-        Action action;
+        Action action = parseAction(parts[0]);
+
+        return switch (action) {
+            case BYE -> new ByeCommand(echo);
+            case LIST -> new ListCommand(echo);
+            case TODO -> parseTodoCommand(echo, parts);
+            case DEADLINE -> parseDeadlineCommand(echo, parts);
+            case EVENT -> parseEventCommand(echo, parts);
+            case MARK -> {
+                int markIndex = parsePositiveIndex(parts, "mark");
+                yield new MarkCommand(echo, markIndex);
+            }
+            case UNMARK -> {
+                int unmarkIndex = parsePositiveIndex(parts, "unmark");
+                yield new UnmarkCommand(echo, unmarkIndex);
+            }
+            case DELETE -> {
+                int deleteIndex = parsePositiveIndex(parts, "delete");
+                yield new DeleteCommand(echo, deleteIndex);
+            }
+            case FIND -> new FindCommand(echo, parts[1]);
+            case SORT -> new SortCommand(echo);
+            default -> null;
+        };
+    }
+
+    private static Action parseAction(String raw) {
         try {
-            action = Action.valueOf(parts[0].toUpperCase());
+            return Action.valueOf(raw.toUpperCase());
         } catch (IllegalArgumentException e) {
-            action = Action.DEFAULT;
+            return  Action.DEFAULT;
         }
-        switch (action) {
-        case BYE:
-            return new ByeCommand(echo);
-        case LIST:
-            return new ListCommand(echo);
-        case TODO, DEADLINE, EVENT:
-            if (parts.length < 2 || parts[1].isEmpty()) {
-                throw new EchoException("Oops! The description cannot be EMPTY!!! The correct format is:\n "
-                        + "  <task type> <description>\n"
-                        + "Example: todo read book");
+    }
+
+    private static String requireArgs(String[] parts, String command) throws EchoException {
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new EchoException("Oops! The description cannot be EMPTY!!! The correct format is:\n "
+                    + "  " + command  + " <description>\n"
+                    + "Example: todo read");
+        }
+        return parts[1];
+    }
+
+    private static Command parseTodoCommand(Echo echo, String[] parts) throws EchoException {
+        return new ToDoCommand(echo, requireArgs(parts, "todo"));
+    }
+
+    private static Command parseDeadlineCommand(Echo echo, String[] parts) throws EchoException {
+        String[] deadlineParts = requireArgs(parts, "deadline").split(" /by");
+        if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
+            throw new EchoException("Wait a min! Your deadline cannot be EMPTY!!! The correct format is:\n "
+                    + "  deadline <description> /by <DD/MM/YYYY HHmm>\n"
+                    + "Example: deadline read book /by 18/9/2025 1000");
+        }
+        return new DeadlineCommand(echo, deadlineParts[0], deadlineParts[1]);
+    }
+
+    private static Command parseEventCommand(Echo echo, String[] parts) throws EchoException {
+        String[] eventParts = requireArgs(parts, "event").split(" /from");
+        if (eventParts.length < 2) {
+            throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
+                    + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
+                    + "Example: event read book /from 18/9/2025 1000 /to 19/9/2025 1000");
+        }
+        String[] fromToParts = eventParts[1].split(" /to ");
+        if (fromToParts[0].isEmpty() || fromToParts[1].isEmpty()) {
+            throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
+                    + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
+                    + "Example: event read book /from 18/9/2025 1000 /to 19/9/2025 1000");
+        }
+        return new EventCommand(echo, eventParts[0], fromToParts[0], fromToParts[1]);
+    }
+
+    private static int parsePositiveIndex(String[] parts, String command) throws EchoException {
+        String indexString = requireArgs(parts, command);
+        try {
+            int index = Integer.parseInt(indexString);
+            assert index <= 0: "index of item to " + command + " must be greater than 0";
+            if (index <= 0) {
+                throw new EchoException("Index must POSITIVEEEEE!");
             }
-            switch (action) {
-            case TODO:
-                return new ToDoCommand(echo, parts[1]);
-            case DEADLINE:
-                String[] deadlineParts = parts[1].split(" /by ");
-                if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
-                    throw new EchoException("Wait a min! Your deadline cannot be EMPTY!!! The correct format is:\n "
-                        + "  deadline <description> /by <DD/MM/YYYY HHmm>\n"
-                        + "Example: deadline read book /by 18/9/2025 1000");
-                }
-                return new DeadlineCommand(echo, deadlineParts[0], deadlineParts[1]);
-            case EVENT:
-                String[] eventParts = parts[1].split(" /from ");
-                if (eventParts.length < 2) {
-                    throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
-                        + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
-                        + "Example: event read book /from 18/9/2025 1000 /to 19/9/2025 1000");
-                }
-                String[] fromToParts = eventParts[1].split(" /to ");
-                if (fromToParts[0].isEmpty() || fromToParts[1].isEmpty()) {
-                    throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
-                        + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
-                        + "Example: event read book /from 18/9/2025 1000 /to 19/9/2025 1000");
-                }
-                return new EventCommand(echo, eventParts[0], fromToParts[0], fromToParts[1]);
-            }
-        case MARK:
-            int markIndex = Integer.parseInt(parts[1]);
-            assert markIndex > 0 : "index of item to mark must be greater than 0";
-            return new MarkCommand(echo, markIndex);
-        case UNMARK:
-            int unmarkIndex = Integer.parseInt(parts[1]);
-            assert unmarkIndex > 0 : "index of item to unmark must be greater than 0";
-            return new UnmarkCommand(echo, unmarkIndex);
-        case DELETE:
-            int deleteIndex = Integer.parseInt(parts[1]);
-            assert deleteIndex > 0 : "index of item to delete must be greater than 0";
-            return new DeleteCommand(echo, deleteIndex);
-        case FIND:
-            return new FindCommand(echo, parts[1]);
-        case SORT:
-            return new SortCommand(echo);
-        default:
-            return null;
+            return index;
+        } catch (NumberFormatException e) {
+            throw new EchoException("Not a NUMBER! Not a NUMBER! Please enter a valid index. \n" +
+                    "Example: " + command + " 1");
         }
     }
 }
