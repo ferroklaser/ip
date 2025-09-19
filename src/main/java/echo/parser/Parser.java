@@ -92,7 +92,7 @@ public class Parser {
     }
 
     private static Command parseDeadlineCommand(Echo echo, String[] parts) throws EchoException {
-        String[] deadlineParts = checkForArgs(parts, "deadline").split(" /by");
+        String[] deadlineParts = checkForArgs(parts, "deadline").split(" /by ");
         if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
             throw new EchoException("Wait a min! Your deadline cannot be EMPTY!!! The correct format is:\n "
                     + "  deadline <description> /by <DD/MM/YYYY HHmm>\n"
@@ -102,7 +102,7 @@ public class Parser {
     }
 
     private static Command parseEventCommand(Echo echo, String[] parts) throws EchoException {
-        String[] eventParts = checkForArgs(parts, "event").split(" /from");
+        String[] eventParts = checkForArgs(parts, "event").split(" /from ");
         if (eventParts.length < 2) {
             throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
                     + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
