@@ -2,14 +2,15 @@ package echo.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import echo.echoexception.EchoException;
 import echo.task.Deadline;
 import echo.task.Event;
 import echo.task.Task;
@@ -34,12 +35,12 @@ public class Storage {
                 File parentFile = file.getParentFile();
                 if (parentFile != null && !parentFile.exists()) {
                     boolean newDir = parentFile.mkdirs();
-                    assert newDir: "Unable to create new directory";
+                    assert newDir : "Unable to create new directory";
                 }
                 boolean newFile = file.createNewFile();
-                assert newFile: "Unable to create new file";
+                assert newFile : "Unable to create new file";
             } catch (IOException error) {
-                System.out.println("Unable to create new file!");
+                System.out.println("I'm unable to create a containment for your tasks. Unable to create new file");
             }
         }
     }
@@ -79,7 +80,7 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException error) {
-            System.out.println("File not found exception");
+            System.out.println("I am unable to find the containment for your Alien tasks");
         }
         return new TaskList(list);
     }
@@ -100,7 +101,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("I am unable to send your Alien tasks into the Null Void for storage");
         }
     }
 

@@ -15,7 +15,7 @@ import echo.command.UnmarkCommand;
 import echo.echoexception.EchoException;
 
 /**
- * Represents action the user can enter for the commandgit
+ * Represents action the user can enter for the command
  */
 enum Action {
     BYE,
@@ -57,7 +57,9 @@ public class Parser {
             return new ListCommand(echo);
         case TODO, DEADLINE, EVENT:
             if (parts.length < 2 || parts[1].isEmpty()) {
-                throw new EchoException("Wait a min! Your description cannot be empty!");
+                throw new EchoException("Oops! The description cannot be EMPTY!!! The correct format is:\n "
+                        + "  <task type> <description>\n"
+                        + "Example: todo read book");
             }
             switch (action) {
             case TODO:
@@ -65,28 +67,37 @@ public class Parser {
             case DEADLINE:
                 String[] deadlineParts = parts[1].split(" /by ");
                 if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
-                    throw new EchoException("Wait a min! Your deadline cannot be empty!");
+                    throw new EchoException("Wait a min! Your deadline cannot be EMPTY!!! The correct format is:\n "
+                        + "  deadline <description> /by <DD/MM/YYYY HHmm>\n"
+                        + "Example: deadline read book /by 18/9/2025 1000");
                 }
                 return new DeadlineCommand(echo, deadlineParts[0], deadlineParts[1]);
             case EVENT:
                 String[] eventParts = parts[1].split(" /from ");
+                if (eventParts.length < 2) {
+                    throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
+                        + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
+                        + "Example: event read book /from 18/9/2025 1000 /to 19/9/2025 1000");
+                }
                 String[] fromToParts = eventParts[1].split(" /to ");
                 if (fromToParts[0].isEmpty() || fromToParts[1].isEmpty()) {
-                    throw new EchoException("Wait a min! Your to and from cannot be empty");
+                    throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
+                        + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
+                        + "Example: event read book /from 18/9/2025 1000 /to 19/9/2025 1000");
                 }
                 return new EventCommand(echo, eventParts[0], fromToParts[0], fromToParts[1]);
             }
         case MARK:
             int markIndex = Integer.parseInt(parts[1]);
-            assert markIndex > 0: "index of item to mark must be greater than 0";
+            assert markIndex > 0 : "index of item to mark must be greater than 0";
             return new MarkCommand(echo, markIndex);
         case UNMARK:
             int unmarkIndex = Integer.parseInt(parts[1]);
-            assert unmarkIndex > 0: "index of item to unmark must be greater than 0";
+            assert unmarkIndex > 0 : "index of item to unmark must be greater than 0";
             return new UnmarkCommand(echo, unmarkIndex);
         case DELETE:
             int deleteIndex = Integer.parseInt(parts[1]);
-            assert deleteIndex > 0: "index of item to delete must be greater than 0";
+            assert deleteIndex > 0 : "index of item to delete must be greater than 0";
             return new DeleteCommand(echo, deleteIndex);
         case FIND:
             return new FindCommand(echo, parts[1]);

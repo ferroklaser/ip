@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private Echo echo = new Echo();
+    private final Echo echo = new Echo();
 
     @Override
     public void start(Stage stage) {

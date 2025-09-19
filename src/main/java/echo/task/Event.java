@@ -21,7 +21,9 @@ public class Event extends Task {
     @Override
     public String toDataString() {
         DateTimeFormatter storageFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-        return "E | " + super.toDataString() + " | " + this.from.format(storageFormatter) + " | " + this.to.format(storageFormatter);
+        return "E | " + super.toDataString()
+                + " | " + this.from.format(storageFormatter)
+                + " | " + this.to.format(storageFormatter);
     }
 
     @Override

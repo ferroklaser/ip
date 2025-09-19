@@ -11,7 +11,7 @@ public class TaskList {
     private final List<Task> taskList;
 
     public TaskList(List<? extends Task> taskList) {
-       this.taskList = new ArrayList<>(taskList);
+        this.taskList = new ArrayList<>(taskList);
     }
 
     /**
