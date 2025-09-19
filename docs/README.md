@@ -37,7 +37,7 @@ New alien added! New alien added!
 Now you have 1 alien to contain.
 ```
 #### Add Event Task
-Adds a event task with a description, a from and to date.
+Adds an event task with a description, a from and to date.
 
 **Format**: `event <description> /from <DD/MM/YYYY HHmm> /to <DD/MM/YYYY HHmm>`
 
