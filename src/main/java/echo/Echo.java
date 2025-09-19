@@ -31,7 +31,7 @@ public class Echo {
     }
 
     /**
-     * Returns the corresponding text ouput based on the user's input
+     * Returns the corresponding text output based on the user's input
      *
      * @param input String input by the user
      * @return Response to be shown to user
