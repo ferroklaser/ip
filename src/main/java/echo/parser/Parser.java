@@ -64,7 +64,7 @@ public class Parser {
                 int deleteIndex = parsePositiveIndex(parts, "delete");
                 yield new DeleteCommand(echo, deleteIndex);
             }
-            case FIND -> new FindCommand(echo, parts[1]);
+            case FIND -> parseFindCommand(echo, parts);
             case SORT -> new SortCommand(echo);
             default -> null;
         };
@@ -78,7 +78,7 @@ public class Parser {
         }
     }
 
-    private static String requireArgs(String[] parts, String command) throws EchoException {
+    private static String checkForArgs(String[] parts, String command) throws EchoException {
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new EchoException("Oops! The description cannot be EMPTY!!! The correct format is:\n "
                     + "  " + command  + " <description>\n"
@@ -88,11 +88,11 @@ public class Parser {
     }
 
     private static Command parseTodoCommand(Echo echo, String[] parts) throws EchoException {
-        return new ToDoCommand(echo, requireArgs(parts, "todo"));
+        return new ToDoCommand(echo, checkForArgs(parts, "todo"));
     }
 
     private static Command parseDeadlineCommand(Echo echo, String[] parts) throws EchoException {
-        String[] deadlineParts = requireArgs(parts, "deadline").split(" /by");
+        String[] deadlineParts = checkForArgs(parts, "deadline").split(" /by");
         if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
             throw new EchoException("Wait a min! Your deadline cannot be EMPTY!!! The correct format is:\n "
                     + "  deadline <description> /by <DD/MM/YYYY HHmm>\n"
@@ -102,7 +102,7 @@ public class Parser {
     }
 
     private static Command parseEventCommand(Echo echo, String[] parts) throws EchoException {
-        String[] eventParts = requireArgs(parts, "event").split(" /from");
+        String[] eventParts = checkForArgs(parts, "event").split(" /from");
         if (eventParts.length < 2) {
             throw new EchoException("Hold up! Your to and from cannot be EMPTY!!! The correct format is:\n "
                     + "  event <description> /from <DD/MM/YYYY> HHmm /to <DD/MM/YYYY HHmm>\n"
@@ -118,7 +118,7 @@ public class Parser {
     }
 
     private static int parsePositiveIndex(String[] parts, String command) throws EchoException {
-        String indexString = requireArgs(parts, command);
+        String indexString = checkForArgs(parts, command);
         try {
             int index = Integer.parseInt(indexString);
             assert index <= 0: "index of item to " + command + " must be greater than 0";
@@ -130,5 +130,9 @@ public class Parser {
             throw new EchoException("Not a NUMBER! Not a NUMBER! Please enter a valid index. \n" +
                     "Example: " + command + " 1");
         }
+    }
+
+    private static Command parseFindCommand(Echo echo, String[] parts) throws EchoException {
+        return new FindCommand(echo, checkForArgs(parts, "find"));
     }
 }
