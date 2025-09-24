@@ -49,6 +49,7 @@ public class Parser {
     public static Command parse(Echo echo, String input) throws EchoException {
         String[] parts = input.split(" ", 2);
         Action action = parseAction(parts[0]);
+        int limit = echo.getTasklist().getSize();
 
         return switch (action) {
             case BYE -> new ByeCommand(echo);
@@ -57,15 +58,15 @@ public class Parser {
             case DEADLINE -> parseDeadlineCommand(echo, parts);
             case EVENT -> parseEventCommand(echo, parts);
             case MARK -> {
-                int markIndex = parsePositiveIndex(parts, "mark");
+                int markIndex = parsePositiveIndex(parts, "mark", limit);
                 yield new MarkCommand(echo, markIndex);
             }
             case UNMARK -> {
-                int unmarkIndex = parsePositiveIndex(parts, "unmark");
+                int unmarkIndex = parsePositiveIndex(parts, "unmark", limit);
                 yield new UnmarkCommand(echo, unmarkIndex);
             }
             case DELETE -> {
-                int deleteIndex = parsePositiveIndex(parts, "delete");
+                int deleteIndex = parsePositiveIndex(parts, "delete", limit);
                 yield new DeleteCommand(echo, deleteIndex);
             }
             case FIND -> parseFindCommand(echo, parts);
@@ -124,13 +125,16 @@ public class Parser {
         return new EventCommand(echo, eventParts[0], from, to);
     }
 
-    private static int parsePositiveIndex(String[] parts, String command) throws EchoException {
+    private static int parsePositiveIndex(String[] parts, String command, int limit) throws EchoException {
         String indexString = checkForArgs(parts, command);
         try {
             int index = Integer.parseInt(indexString);
             assert index > 0: "index of item to " + command + " must be greater than 0";
             if (index <= 0) {
                 throw new EchoException("Index must POSITIVEEEEE!");
+            }
+            if (index > limit) {
+                throw new EchoException("Index is TOO LARGEEEE!");
             }
             return index;
         } catch (NumberFormatException e) {
